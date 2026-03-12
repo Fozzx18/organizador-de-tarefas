@@ -170,10 +170,16 @@ function mostrarTarefas(){
 
     let li = document.createElement("li")
 
+    let dataFormatada = new Date(item.data).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    })
+
     li.innerHTML =
       "<strong>" + item.materia + "</strong> - " +
       item.tarefa +
-      " (Entrega: " + item.data + ") " +
+      " (Entrega: " + dataFormatada + ") " +
       "<button onclick='removerTarefa(" + index + ")'>Excluir</button>"
 
     lista.appendChild(li)
@@ -194,7 +200,7 @@ function removerTarefa(index){
 </script>
 
   <footer>
-    <p>© 2026 Eu sou o dougras — Todos os direitos reservados</p>
+    <p>© 2026 Organizador Tarefas e Trabalhos — Todos os direitos reservados</p>
   </footer>
 
 </body>
