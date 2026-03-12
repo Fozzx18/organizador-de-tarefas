@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Meu Site Simples</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background: #eba625;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background: #613f12;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      color: #555;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #e68403;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: #945002c5;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #111827;
+      color: #9ca3af;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>Eu sou o Dougras</h2>
+    <p>Compartilhe Criações</p>
+  </header>
+
+  <nav>
+    <a href="#">Início</a>
+    <a href="#">Sobre</a>
+    <a href="#">Contato</a>
+  </nav>
+
+  <main class="container">
+  <section class="hero" id="inicio">
+    <h1>Bem-vindo ao meu site</h1>
+    <p>Organize suas matérias e tarefas.</p>
+    <button class="btn" onclick="mostrarOrganizador()">Começar</button>
+  </section>
+
+  <section id="organizador" style="display:none; margin-top:30px;">
+    <h2>Adicionar tarefa</h2>
+
+    <input type="text" id="materia" placeholder="Matéria"><br><br>
+    <input type="text" id="tarefa" placeholder="Tarefa"><br><br>
+    <input type="date" id="data"><br><br>
+
+    <button class="btn" onclick="adicionarTarefa()">Adicionar</button>
+
+    <h3 style="margin-top:30px;">Suas tarefas</h3>
+    <ul id="lista"></ul>
+  </section>
+</main>
+
+<script>
+
+let tarefas = JSON.parse(localStorage.getItem("tarefas")) || []
+
+function mostrarOrganizador() {
+  document.getElementById("inicio").style.display = "none"
+  document.getElementById("organizador").style.display = "block"
+  mostrarTarefas()
+}
+
+function adicionarTarefa() {
+
+  let materia = document.getElementById("materia").value
+  let tarefa = document.getElementById("tarefa").value
+  let data = document.getElementById("data").value
+
+  if(materia === "" || tarefa === "" || data === ""){
+    alert("Preencha todos os campos")
+    return
+  }
+
+  let nova = {
+    materia: materia,
+    tarefa: tarefa,
+    data: data
+  }
+
+  tarefas.push(nova)
+
+  localStorage.setItem("tarefas", JSON.stringify(tarefas))
+
+  mostrarTarefas()
+
+  document.getElementById("materia").value = ""
+  document.getElementById("tarefa").value = ""
+  document.getElementById("data").value = ""
+}
+
+function mostrarTarefas(){
+
+  let lista = document.getElementById("lista")
+  lista.innerHTML = ""
+
+  tarefas.forEach(function(item){
+
+    let li = document.createElement("li")
+
+    li.innerHTML =
+      "<strong>" + item.materia + "</strong> - " +
+      item.tarefa +
+      " (Entrega: " + item.data + ")"
+
+    lista.appendChild(li)
+
+  })
+}
+
+</script>
+
+  <footer>
+    <p>© 2026 Eu sou o dougras — Todos os direitos reservados</p>
+  </footer>
+
+</body>
+</html>
