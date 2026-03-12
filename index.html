@@ -172,14 +172,15 @@ function mostrarTarefas(){
   let lista = document.getElementById("lista")
   lista.innerHTML = ""
 
-  tarefas.forEach(function(item){
+  tarefas.forEach(function(item, index){
 
     let li = document.createElement("li")
 
     li.innerHTML =
       "<strong>" + item.materia + "</strong> - " +
       item.tarefa +
-      " (Entrega: " + item.data + ")"
+      " (Entrega: " + item.data + ") " +
+      "<button onclick='removerTarefa(" + index + ")'>Excluir</button>"
 
     lista.appendChild(li)
 
