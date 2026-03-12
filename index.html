@@ -181,6 +181,16 @@ function mostrarTarefas(){
   })
 }
 
+function removerTarefa(index){
+
+  tarefas.splice(index, 1)
+
+  localStorage.setItem("tarefas", JSON.stringify(tarefas))
+
+  mostrarTarefas()
+
+}
+
 </script>
 
   <footer>
